@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Surprise Countdown</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-image: url('US.jpeg'); /* Resim yolunu buraya ekleyin */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            color: white;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            position: relative; /* Pozisyonu relative yaparak alt öğeleri konumlandırabilirsin */
+        }
+        #countdown-container {
+            position: absolute; /* Pozisyonu absolute yaparak metni konumlandırabilirsin */
+            top: 50%; /* Ekranın ortasına koymak için */
+            left: 50%;
+            transform: translate(-50%, -50%); /* Tam ortada görünmesini sağlar */
+            background-color: rgba(0, 0, 0, 0.5); /* Metin arka planı için yarı saydam bir siyah */
+            padding: 20px;
+            border-radius: 10px;
+        }
+        #countdown {
+            font-size: 2em;
+        }
+        #message {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="countdown-container">
+        <div id="message">SINCABIMA KAVUSMAMA KALAN ZAMAN:</div>
+        <div id="countdown"></div>
+    </div>
+
+    <script>
+        // Geri sayım tarihini belirleyin
+        const countdownDate = new Date("September 24, 2024 20:30:00").getTime();
+
+        // Her saniye sayaçı güncelle
+        const x = setInterval(function() {
+            const now = new Date().getTime();
+            const distance = countdownDate - now;
+
+            // Gün, saat, dakika ve saniye hesaplama
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            // Sonucu bir HTML elementine yerleştirin
+            document.getElementById("countdown").innerHTML = days + " Gün " + hours + " Saat "
+            + minutes + " Dakika " + seconds + " Saniye ";
+
+            // Geri sayım bittiğinde
+            if (distance < 0) {
+                clearInterval(x);
+                document.getElementById("countdown").innerHTML = "Sürenin Sonuna Geldik!";
+            }
+        }, 1000);
+    </script>
+
+</body>
+</html>
